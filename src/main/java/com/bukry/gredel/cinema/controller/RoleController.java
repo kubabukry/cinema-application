@@ -3,6 +3,7 @@ package com.bukry.gredel.cinema.controller;
 import com.bukry.gredel.cinema.dto.RoleNameDto;
 import com.bukry.gredel.cinema.dto.RoleDto;
 import com.bukry.gredel.cinema.service.RoleService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class RoleController {
     }
 
     @PostMapping("/roles")
-    public RoleDto createRole(@RequestBody RoleNameDto roleNameDto){
+    public RoleDto createRole(@Valid @RequestBody RoleNameDto roleNameDto){
         return mapRoleToRoleDto(roleService.createRole(roleNameDto));
     }
 
@@ -36,12 +37,13 @@ public class RoleController {
     }
 
     @PutMapping("roles/{id}")
-    public void updateRole(@PathVariable Long id, @RequestBody RoleNameDto roleNameDto){
+    public void updateRole(@Valid @PathVariable Long id, @RequestBody RoleNameDto roleNameDto){
         roleService.updateRole(id, roleNameDto);
     }
 //    @DeleteMapping("/roles/{id}")
 //    public void deleteRole(@PathVariable Long id){
 //        roleService.deleteRole(id);
 //    }
+
 
 }

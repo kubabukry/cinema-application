@@ -2,7 +2,7 @@ package com.bukry.gredel.cinema.service;
 
 import com.bukry.gredel.cinema.dto.RoleNameDto;
 import com.bukry.gredel.cinema.exception.NoSuchRoleExists;
-import com.bukry.gredel.cinema.exception.RoleAlreadyExistsException;
+import com.bukry.gredel.cinema.exception.RoleAlreadyExists;
 import com.bukry.gredel.cinema.model.Role;
 import com.bukry.gredel.cinema.repository.RoleRepository;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class RoleService {
             role.setName(roleNameDto.getName());
             return roleRepository.save(role);
         } else
-            throw new RoleAlreadyExistsException("Role already exists by name: "+ roleNameDto.getName());
+            throw new RoleAlreadyExists("Role already exists by name: "+ roleNameDto.getName());
     }
 
     public List<Role> getRoles(){
@@ -43,7 +43,7 @@ public class RoleService {
         if(!nameExists){
             role.setName(roleNameDto.getName());
         } else {
-            throw new RoleAlreadyExistsException("Role already exists by name: "+ roleNameDto.getName());
+            throw new RoleAlreadyExists("Role already exists by name: "+ roleNameDto.getName());
         }
         return roleRepository.save(role);
     }
@@ -52,4 +52,5 @@ public class RoleService {
 //    public void deleteRole(Long id) {
 //
 //    }
+    //setRoleToUser
 }
