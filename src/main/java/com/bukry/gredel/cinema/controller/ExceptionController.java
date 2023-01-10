@@ -77,6 +77,12 @@ public class ExceptionController {
         return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 
+    @ExceptionHandler(value = NoSuchSeanceExistsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleNoSuchSeanceExistsException(NoSuchSeanceExistsException e){
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ErrorResponse handleValidationExceptions(

@@ -1,11 +1,14 @@
 package com.bukry.gredel.cinema.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Data
 public class Seance {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
