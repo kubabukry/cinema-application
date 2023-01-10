@@ -2,10 +2,10 @@ package com.bukry.gredel.cinema.service;
 
 import com.bukry.gredel.cinema.dto.PersonCreationDto;
 import com.bukry.gredel.cinema.dto.PersonUpdateDto;
-import com.bukry.gredel.cinema.exception.EmailAlreadyExists;
-import com.bukry.gredel.cinema.exception.LoginAlreadyExists;
+import com.bukry.gredel.cinema.exception.EmailAlreadyExistsException;
+import com.bukry.gredel.cinema.exception.LoginAlreadyExistsException;
 import com.bukry.gredel.cinema.exception.NoSuchPersonExistsException;
-import com.bukry.gredel.cinema.exception.NoSuchRoleExists;
+import com.bukry.gredel.cinema.exception.NoSuchRoleExistsException;
 import com.bukry.gredel.cinema.model.Person;
 import com.bukry.gredel.cinema.model.Role;
 import com.bukry.gredel.cinema.repository.PersonRepository;
@@ -30,10 +30,10 @@ public class PersonService {
         Boolean loginExists = personRepository.existsByLogin(personCreationDto.getLogin());
         Boolean mailExists = personRepository.existsByEmail(personCreationDto.getEmail());
         if(loginExists){
-            throw new LoginAlreadyExists("Login: "+personCreationDto.getLogin()+" already exists");
+            throw new LoginAlreadyExistsException("Login: "+personCreationDto.getLogin()+" already exists");
         }
         if(mailExists){
-            throw new EmailAlreadyExists("Email: "+personCreationDto.getEmail()+" already exists");
+            throw new EmailAlreadyExistsException("Email: "+personCreationDto.getEmail()+" already exists");
         }
 
         Person person = new Person();
@@ -64,13 +64,13 @@ public class PersonService {
         Boolean emailExists = personRepository.existsByEmail(personUpdateDto.getEmail());
 
         if(loginExists){
-            throw new LoginAlreadyExists("Login: "+personUpdateDto.getLogin()+" already exists");
+            throw new LoginAlreadyExistsException("Login: "+personUpdateDto.getLogin()+" already exists");
         }
         if(emailExists){
-            throw new EmailAlreadyExists("Email: "+personUpdateDto.getEmail()+" already exists");
+            throw new EmailAlreadyExistsException("Email: "+personUpdateDto.getEmail()+" already exists");
         }
         Role role = roleRepository.findById(personUpdateDto.getRoleId())
-                .orElseThrow(() -> new NoSuchRoleExists(
+                .orElseThrow(() -> new NoSuchRoleExistsException(
                         "No such role with id: "+personUpdateDto.getRoleId()+" exists"));
 
         person.setLogin(personUpdateDto.getLogin());

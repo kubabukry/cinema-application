@@ -17,33 +17,51 @@ import java.util.stream.Collectors;
 @ResponseBody
 public class ExceptionController {
 
-    @ExceptionHandler(value = RoleAlreadyExists.class)
+    @ExceptionHandler(value = RoleAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleRoleAlreadyExists(RoleAlreadyExists e){
+    public ErrorResponse handleRoleAlreadyExists(RoleAlreadyExistsException e){
         return new ErrorResponse(HttpStatus.CONFLICT.value(), e.getMessage());
     }
 
-    @ExceptionHandler(value = NoSuchRoleExists.class)
+    @ExceptionHandler(value = NoSuchRoleExistsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleNoSuchRoleExists(NoSuchRoleExists e){
+    public ErrorResponse handleNoSuchRoleExists(NoSuchRoleExistsException e){
         return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 
-    @ExceptionHandler(value = LoginAlreadyExists.class)
+    @ExceptionHandler(value = LoginAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleLoginAlreadyExists(LoginAlreadyExists e){
+    public ErrorResponse handleLoginAlreadyExists(LoginAlreadyExistsException e){
         return new ErrorResponse(HttpStatus.CONFLICT.value(), e.getMessage());
     }
 
-    @ExceptionHandler(value = EmailAlreadyExists.class)
+    @ExceptionHandler(value = EmailAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleEmailAlreadyExists(EmailAlreadyExists e){
+    public ErrorResponse handleEmailAlreadyExists(EmailAlreadyExistsException e){
         return new ErrorResponse(HttpStatus.CONFLICT.value(), e.getMessage());
     }
 
     @ExceptionHandler(value = NoSuchPersonExistsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleNoSuchPersonExistsException(NoSuchPersonExistsException e){
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+    }
+
+    @ExceptionHandler(value = RoleIsInUseException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorResponse handleRoleIsInUseException(RoleIsInUseException e){
+        return new ErrorResponse(HttpStatus.CONFLICT.value(), e.getMessage());
+    }
+
+    @ExceptionHandler(value = MovieTitleAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorResponse handleMovieTitleAlreadyExistsException(MovieTitleAlreadyExistsException e){
+        return new ErrorResponse(HttpStatus.CONFLICT.value(), e.getMessage());
+    }
+
+    @ExceptionHandler(value = NoSuchMovieExistsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleNoSuchMovieExistsException(NoSuchMovieExistsException e){
         return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 

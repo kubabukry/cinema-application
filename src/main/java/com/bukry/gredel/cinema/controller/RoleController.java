@@ -40,10 +40,10 @@ public class RoleController {
     public void updateRole(@Valid @PathVariable Long id, @RequestBody RoleNameDto roleNameDto){
         roleService.updateRole(id, roleNameDto);
     }
-//    @DeleteMapping("/roles/{id}")
-//    public void deleteRole(@PathVariable Long id){
-//        roleService.deleteRole(id);
-//    }
+    @DeleteMapping("/roles/{id}")
+    public void deleteRole(@PathVariable Long id){
+        roleService.deleteRole(id);
+    }
 
 
 }
