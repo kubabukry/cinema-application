@@ -1,10 +1,12 @@
 package com.bukry.gredel.cinema.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
 
 @Entity
+@Data
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
