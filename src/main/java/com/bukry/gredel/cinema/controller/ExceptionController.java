@@ -82,6 +82,26 @@ public class ExceptionController {
     public ErrorResponse handleNoSuchSeanceExistsException(NoSuchSeanceExistsException e){
         return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
+    @ExceptionHandler(value = SeanceAlreadyStartedException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleSeanceAlreadyStartedException(SeanceAlreadyStartedException e){
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+    }
+
+    @ExceptionHandler(value = NoSuchReservationExistsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleNoSuchReservationExistsException(NoSuchReservationExistsException e){
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+    }
+
+
+
+    @ExceptionHandler(value = SeatAlreadyTakenException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleSeatAlreadyTakenException(SeatAlreadyTakenException e){
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+    }
+
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = MethodArgumentNotValidException.class)

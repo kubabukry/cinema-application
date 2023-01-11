@@ -1,8 +1,10 @@
 package com.bukry.gredel.cinema.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
+@Data
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
