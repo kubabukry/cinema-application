@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public class RoleNameDto {
-    @ValidRoleName
+//    @ValidRoleName            //todo nie przepuszcza valid name
     private String name;
 }

@@ -1,25 +1,44 @@
 package com.bukry.gredel.cinema.model;
 
-import com.bukry.gredel.cinema.validation.ValidLogin;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Pattern;
-import lombok.Data;
+import lombok.*;
+import org.hibernate.Hibernate;
+
+import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    @Pattern(regexp = "^\\w+$", message = "login can contain only letters, numbers or _ character")
     private String login;
     private String password;
     private String email;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_role")
     private Role role;
 
+    @OneToMany(mappedBy = "person")
+    @ToString.Exclude
+    private List<Reservation> reservationList;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Person person = (Person) o;
+        return id != null && Objects.equals(id, person.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

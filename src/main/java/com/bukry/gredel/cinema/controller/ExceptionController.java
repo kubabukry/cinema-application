@@ -94,7 +94,11 @@ public class ExceptionController {
         return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 
-
+    @ExceptionHandler(value = SeanceDateException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleSeanceDateException(SeanceDateException e){
+        return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
+    }
 
     @ExceptionHandler(value = SeatAlreadyTakenException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -102,15 +106,13 @@ public class ExceptionController {
         return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), e.getMessage());
     }
 
-
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ErrorResponse handleValidationExceptions(
            MethodArgumentNotValidException e) {
 
         List<String> messages = e.getBindingResult().getAllErrors().stream()
-                .map(ObjectError::getDefaultMessage)
-                .collect(Collectors.toList());
+                .map(ObjectError::getDefaultMessage).toList();
         return new ErrorResponse(HttpStatus.BAD_REQUEST.value(), messages.toString());
     }
 }

@@ -2,6 +2,7 @@ package com.bukry.gredel.cinema.controller;
 
 import com.bukry.gredel.cinema.dto.RoomCreationDto;
 import com.bukry.gredel.cinema.dto.RoomDto;
+import com.bukry.gredel.cinema.model.Room;
 import com.bukry.gredel.cinema.service.RoomService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,11 @@ public class RoomController {
         return mapRoomListToRoomDtoList(roomService.getRooms());
     }
 
+    @GetMapping("/test-get")
+    public List<Room> getRoomsTest(){
+        return roomService.getRooms();
+    }
+
     @GetMapping("/rooms/{id}")
     public RoomDto getSingleRoom(@PathVariable Long id){
         return mapRoomToRoomDto(roomService.getSingleRoom(id));
@@ -33,6 +39,11 @@ public class RoomController {
     @PostMapping("/rooms")
     public void createRoom(@Valid @RequestBody RoomCreationDto roomCreationDto){
         roomService.createRoom(roomCreationDto);
+    }
+
+    @PutMapping("/rooms")
+    public void updateRoom(@Valid @RequestBody RoomDto roomDto){
+        roomService.updateRoom(roomDto);
     }
 
     @DeleteMapping("/rooms/{id}")

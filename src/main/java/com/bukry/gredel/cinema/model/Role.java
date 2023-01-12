@@ -1,8 +1,6 @@
 package com.bukry.gredel.cinema.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
 
 import java.util.List;
 
@@ -15,12 +13,6 @@ public class Role {
 
     @OneToMany(mappedBy = "role")
     private List<Person> personList;
-
-    public Role(Long id, String name, List<Person> personList) {
-        this.id = id;
-        this.name = name;
-        this.personList = personList;
-    }
 
     public Role() {
 

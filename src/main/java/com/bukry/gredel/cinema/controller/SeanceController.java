@@ -23,6 +23,11 @@ public class SeanceController {
         seanceService.createSeance(seanceCreationDto);
     }
 
+    @PutMapping("/seances")
+    public void updateSeance(@RequestBody SeanceDto seanceDto){
+        seanceService.updateSeance(seanceDto);
+    }
+
     @GetMapping("/seances")
     public List<SeanceDto> getSeances(){
         return mapSeanceListToSeanceDtoList(seanceService.getSeances());
