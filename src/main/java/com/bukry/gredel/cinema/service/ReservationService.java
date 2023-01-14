@@ -4,6 +4,7 @@ import com.bukry.gredel.cinema.dto.ReservationCreationDto;
 import com.bukry.gredel.cinema.exception.*;
 import com.bukry.gredel.cinema.model.Person;
 import com.bukry.gredel.cinema.model.Reservation;
+import com.bukry.gredel.cinema.model.Room;
 import com.bukry.gredel.cinema.model.Seance;
 import com.bukry.gredel.cinema.repository.MovieRepository;
 import com.bukry.gredel.cinema.repository.PersonRepository;
@@ -40,6 +41,10 @@ public class ReservationService {
             throw new SeatAlreadyTakenException(
                     "Seat: "+reservationCreationDto.getSeat()+" for seance: "+seance.getId()+" already taken");
 
+        Boolean seatExists = checkSeatExists(seance.getRoom(), reservationCreationDto.getSeat());
+        if(!seatExists)
+            throw new SeatAlreadyTakenException("Seat number: "+reservationCreationDto.getSeat()+" does not exist");
+
         Boolean seanceStarted = checkSeanceStarted(seance);
         if(seanceStarted){
             throw new SeanceAlreadyStartedException("It is already past start date of seance: "+seance.getId());
@@ -69,6 +74,13 @@ public class ReservationService {
         if(startDate.isBefore(Instant.now()))
             return true;
         return false;
+    }
+
+    private Boolean checkSeatExists(Room room, Integer seatTaken){
+        Integer seatNumber = room.getSeats();
+        if(seatNumber<=0||seatNumber<seatTaken)
+            return false;
+        return true;
     }
 
     public List<Reservation> getReservations() {

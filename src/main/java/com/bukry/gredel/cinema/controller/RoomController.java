@@ -2,7 +2,6 @@ package com.bukry.gredel.cinema.controller;
 
 import com.bukry.gredel.cinema.dto.RoomCreationDto;
 import com.bukry.gredel.cinema.dto.RoomDto;
-import com.bukry.gredel.cinema.model.Room;
 import com.bukry.gredel.cinema.service.RoomService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +23,6 @@ public class RoomController {
     @GetMapping("/rooms")
     public List<RoomDto> getRooms(){
         return mapRoomListToRoomDtoList(roomService.getRooms());
-    }
-
-    @GetMapping("/test-get")
-    public List<Room> getRoomsTest(){
-        return roomService.getRooms();
     }
 
     @GetMapping("/rooms/{id}")

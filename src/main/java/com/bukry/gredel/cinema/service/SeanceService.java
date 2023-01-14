@@ -11,9 +11,9 @@ import com.bukry.gredel.cinema.repository.MovieRepository;
 import com.bukry.gredel.cinema.repository.RoomRepository;
 import com.bukry.gredel.cinema.repository.SeanceRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,6 +41,7 @@ public class SeanceService {
     }
 
     //todo jakie jeszcze wyjatki?
+    @Transactional
     public void createSeance(SeanceCreationDto seanceCreationDto) {
         Movie movie = movieService.getSingleMovie(seanceCreationDto.getIdMovie());
         Room room = roomService.getSingleRoom(seanceCreationDto.getIdRoom());
@@ -82,6 +83,7 @@ public class SeanceService {
             seanceRepository.deleteById(id);
     }
 
+    @Transactional
     public void updateSeance(SeanceDto seanceDto) {
         List<Reservation> reservationList = reservationService.getReservations();
         Boolean seanceNotBooked = reservationList.stream()
