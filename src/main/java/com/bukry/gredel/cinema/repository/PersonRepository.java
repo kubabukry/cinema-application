@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface PersonRepository extends JpaRepository<Person, Long> {
     Boolean existsByLogin(String login);
     Boolean existsByEmail(String email);
+
+    //todo why to use Optionals here?
+    Person findByLogin(String login);
 }
