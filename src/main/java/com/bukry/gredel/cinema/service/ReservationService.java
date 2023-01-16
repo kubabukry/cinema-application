@@ -11,6 +11,7 @@ import com.bukry.gredel.cinema.repository.PersonRepository;
 import com.bukry.gredel.cinema.repository.ReservationRepository;
 import com.bukry.gredel.cinema.repository.SeanceRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class ReservationService {
         this.seanceRepository = seanceRepository;
     }
 
+    @Transactional
     public void createReservation(ReservationCreationDto reservationCreationDto) {
         Person person = personRepository.findById(reservationCreationDto.getIdPerson())
                 .orElseThrow(() -> new NoSuchPersonExistsException(
@@ -57,6 +59,21 @@ public class ReservationService {
         reservationRepository.save(reservation);
     }
 
+    public List<Reservation> getReservations() {
+        return reservationRepository.findAll();
+    }
+
+    public Reservation getSingleReservation(Long id) {
+        return reservationRepository.findById(id)
+                .orElseThrow(() -> new NoSuchReservationExistsException(
+                        "No such reservation with id: "+id+" exists"));
+    }
+
+    public void deleteReservation(Long id) {
+        if(reservationRepository.existsById(id))
+            reservationRepository.deleteById(id);
+    }
+
     private Boolean checkSeatAvailability(Seance seance, Integer seat){
         List<Reservation> reservationList = new ArrayList<>();
         reservationRepository.findAll().stream()
@@ -81,20 +98,5 @@ public class ReservationService {
         if(seatNumber<=0||seatNumber<seatTaken)
             return false;
         return true;
-    }
-
-    public List<Reservation> getReservations() {
-        return reservationRepository.findAll();
-    }
-
-    public Reservation getSingleReservation(Long id) {
-        return reservationRepository.findById(id)
-                .orElseThrow(() -> new NoSuchReservationExistsException(
-                        "No such reservation with id: "+id+" exists"));
-    }
-
-    public void deleteReservation(Long id) {
-        if(reservationRepository.existsById(id))
-            reservationRepository.deleteById(id);
     }
 }

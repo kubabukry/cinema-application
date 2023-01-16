@@ -6,8 +6,6 @@ import com.bukry.gredel.cinema.model.Person;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.bukry.gredel.cinema.mapper.RoleMapper.mapRoleToRoleDto;
-
 public class PersonMapper {
 
     public static PersonDto mapPersonToPersonDto(Person person){
@@ -15,7 +13,7 @@ public class PersonMapper {
                 .id(person.getId())
                 .email(person.getEmail())
                 .login(person.getLogin())
-                .role(mapRoleToRoleDto(person.getRole()))
+                .role(person.getRole().name())
                 .build();
     }
 
@@ -25,7 +23,7 @@ public class PersonMapper {
                         .id(person.getId())
                         .email((person.getEmail()))
                         .login(person.getLogin())
-                        .role(mapRoleToRoleDto(person.getRole()))
+                        .role(person.getRole().name())
                         .build())
                 .collect(Collectors.toList());
     }

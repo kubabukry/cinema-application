@@ -10,6 +10,7 @@ import com.bukry.gredel.cinema.model.Seance;
 import com.bukry.gredel.cinema.repository.RoomRepository;
 import com.bukry.gredel.cinema.repository.SeanceRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,6 +32,7 @@ public class RoomService {
     }
 
 
+    @Transactional
     public void createRoom(RoomCreationDto roomCreationDto) {
         Boolean roomExists = roomRepository.existsByName(roomCreationDto.getName());
         if(roomExists)
@@ -54,6 +56,7 @@ public class RoomService {
             roomRepository.deleteById(id);
     }
 
+    @Transactional
     public void updateRoom(RoomDto roomDto) {
         List<Seance> seanceList = seanceRepository.findAll();
         Boolean roomNotBooked = seanceList.stream()

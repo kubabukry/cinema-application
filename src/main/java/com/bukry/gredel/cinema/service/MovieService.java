@@ -10,6 +10,7 @@ import com.bukry.gredel.cinema.model.Seance;
 import com.bukry.gredel.cinema.repository.MovieRepository;
 import com.bukry.gredel.cinema.repository.SeanceRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +31,7 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
+    @Transactional
     public void createMovie(MovieCreationDto movieCreationDto) {
         Boolean titleExists = movieRepository.existsByTitle(movieCreationDto.getTitle());
         if(titleExists)
@@ -52,6 +54,7 @@ public class MovieService {
             movieRepository.deleteById(id);
     }
 
+    @Transactional
     public void updateMovie(MovieDto movieDto) {
         List<Seance> seanceList = seanceRepository.findAll();
         Boolean movieNotBooked = seanceList.stream()

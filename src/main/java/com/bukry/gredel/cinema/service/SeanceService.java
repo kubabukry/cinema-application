@@ -57,7 +57,7 @@ public class SeanceService {
         Boolean roomAvailable = checkIfRoomAvailable(room.getSeanceList().stream().toList(), seanceCreationDto.getStartDate());
         if(!roomAvailable)
             throw new SeanceDateException(
-                    "Room with id: "+room.getId()+" has already seance planned at this time");
+                    "Room with id: "+room.getId()+" has seance already planned at this time");
 
         Seance seance = new Seance();
         seance.setStartDate(seanceCreationDto.getStartDate());
@@ -83,6 +83,7 @@ public class SeanceService {
             seanceRepository.deleteById(id);
     }
 
+    //seance already booked = reservation planned
     @Transactional
     public void updateSeance(SeanceDto seanceDto) {
         List<Reservation> reservationList = reservationService.getReservations();
@@ -115,7 +116,7 @@ public class SeanceService {
         seance.setEndDate(seanceDto.getEndDate());
         seanceRepository.save(seance);
     }
-    //todo z jakiegos powodu nie dziala
+
     private Boolean checkIfRoomAvailable(List<Seance> seanceList, Instant startCheck){
         return seanceList.stream()
                 .filter(seance -> startCheck.isBefore(seance.getEndDate())
