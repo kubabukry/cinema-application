@@ -1,9 +1,6 @@
 package com.bukry.gredel.cinema.service;
 
-import com.bukry.gredel.cinema.dto.AuthenticationRequest;
-import com.bukry.gredel.cinema.dto.AuthenticationResponseDto;
-import com.bukry.gredel.cinema.dto.PersonCreationDto;
-import com.bukry.gredel.cinema.dto.PersonUpdateDto;
+import com.bukry.gredel.cinema.dto.*;
 import com.bukry.gredel.cinema.exception.EmailAlreadyExistsException;
 import com.bukry.gredel.cinema.exception.LoginAlreadyExistsException;
 import com.bukry.gredel.cinema.exception.NoSuchPersonExistsException;
@@ -85,7 +82,6 @@ public class PersonService {
 
         person.setLogin(personUpdateDto.getLogin());
         person.setEmail(personUpdateDto.getEmail());
-        person.setPassword(personUpdateDto.getPassword());
         personRepository.save(person);
     }
 
@@ -111,5 +107,21 @@ public class PersonService {
         return AuthenticationResponseDto.builder()
                 .token(jwtToken)
                 .build();
+    }
+
+    @Transactional
+    public void changePassword(ChangePasswordDto changePasswordDto) {
+        Person person = personRepository.findByLogin(changePasswordDto.getLogin())
+                .orElseThrow(() -> new NoSuchPersonExistsException(
+                        "No such person with login: "+changePasswordDto.getLogin()+" exists"));
+
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        changePasswordDto.getLogin(), changePasswordDto.getOldPassword()
+                )
+        );
+
+        person.setPassword(passwordEncoder.encode(changePasswordDto.getNewPassword()));
+        personRepository.save(person);
     }
 }

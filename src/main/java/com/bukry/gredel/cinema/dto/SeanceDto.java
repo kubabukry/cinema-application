@@ -14,4 +14,5 @@ public class SeanceDto {
     private Long idRoom;
     private Instant startDate;
     private Instant endDate;
+    private Integer availableSeats;
 }

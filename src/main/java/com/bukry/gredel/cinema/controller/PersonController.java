@@ -32,22 +32,27 @@ public class PersonController {
         return ResponseEntity.ok(personService.authenticate(authenticationRequest));
     }
 
-    @GetMapping("/persons/{id}")
+    @GetMapping("/persons/single/{id}")
     public PersonDto getSinglePerson(@PathVariable Long id){
         return mapPersonToPersonDto(personService.getSinglePerson(id));
     }
 
-    @GetMapping("/persons")
+    @GetMapping("/persons/all")
     public List<PersonDto> getPersons(){
         return mapPersonListToPersonDtoList(personService.getPersons());
     }
 
-    @PutMapping("/persons/{id}")
+    @PutMapping("/persons/update/{id}")
     public void updatePerson(@Valid @PathVariable Long id, @RequestBody PersonUpdateDto personUpdateDto){
         personService.updatePerson(id, personUpdateDto);
     }
 
-    @DeleteMapping("/persons/{id}")
+    @PutMapping("/persons/change-password")
+    public void changePassword(@Valid @RequestBody ChangePasswordDto changePasswordDto){
+        personService.changePassword(changePasswordDto);
+    }
+
+    @DeleteMapping("/persons/delete/{id}")
     public void deletePerson(@PathVariable Long id){
         personService.deletePerson(id);
     }
