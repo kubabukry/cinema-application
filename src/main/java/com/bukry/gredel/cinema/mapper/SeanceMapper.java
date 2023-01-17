@@ -16,6 +16,7 @@ public class SeanceMapper {
                 .idRoom(seance.getRoom().getId())
                 .startDate(seance.getStartDate())
                 .endDate(seance.getEndDate())
+                .availableSeats(checkHowManySeatsAvailable(seance))
                 .build();
     }
 
@@ -28,7 +29,14 @@ public class SeanceMapper {
                         .idRoom(seance.getRoom().getId())
                         .startDate(seance.getStartDate())
                         .endDate(seance.getEndDate())
+                        .availableSeats(checkHowManySeatsAvailable(seance))
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    private static Integer checkHowManySeatsAvailable(Seance seance){
+        if(seance.getReservationList()==null)
+            return 0;
+        return seance.getRoom().getSeats() - seance.getReservationList().size();
     }
 }

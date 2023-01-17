@@ -1,10 +1,9 @@
 package com.bukry.gredel.cinema.controller;
 
-import com.bukry.gredel.cinema.dto.PersonCreationDto;
-import com.bukry.gredel.cinema.dto.PersonDto;
-import com.bukry.gredel.cinema.dto.PersonUpdateDto;
+import com.bukry.gredel.cinema.dto.*;
 import com.bukry.gredel.cinema.service.PersonService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,27 +20,39 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @PostMapping("/persons")
-    public void createPerson(@Valid @RequestBody PersonCreationDto personCreationDto){
-        personService.createPerson(personCreationDto);
+    @PostMapping("/persons/auth/register")
+    public ResponseEntity<AuthenticationResponseDto> register(
+            @Valid @RequestBody PersonCreationDto personCreationDto){
+        return ResponseEntity.ok(personService.createPerson(personCreationDto));
     }
 
-    @GetMapping("/persons/{id}")
+    @PostMapping("/persons/auth/authenticate")
+    public ResponseEntity<AuthenticationResponseDto> authenticate(
+            @RequestBody AuthenticationRequest authenticationRequest){
+        return ResponseEntity.ok(personService.authenticate(authenticationRequest));
+    }
+
+    @GetMapping("/persons/single/{id}")
     public PersonDto getSinglePerson(@PathVariable Long id){
         return mapPersonToPersonDto(personService.getSinglePerson(id));
     }
 
-    @GetMapping("/persons")
+    @GetMapping("/persons/all")
     public List<PersonDto> getPersons(){
         return mapPersonListToPersonDtoList(personService.getPersons());
     }
 
-    @PutMapping("/persons/{id}")
+    @PutMapping("/persons/update/{id}")
     public void updatePerson(@Valid @PathVariable Long id, @RequestBody PersonUpdateDto personUpdateDto){
         personService.updatePerson(id, personUpdateDto);
     }
 
-    @DeleteMapping("/persons/{id}")
+    @PutMapping("/persons/change-password")
+    public void changePassword(@Valid @RequestBody ChangePasswordDto changePasswordDto){
+        personService.changePassword(changePasswordDto);
+    }
+
+    @DeleteMapping("/persons/delete/{id}")
     public void deletePerson(@PathVariable Long id){
         personService.deletePerson(id);
     }

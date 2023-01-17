@@ -47,6 +47,11 @@ public class ReservationService {
         if(!seatExists)
             throw new SeatAlreadyTakenException("Seat number: "+reservationCreationDto.getSeat()+" does not exist");
 
+        Boolean seanceNotFull = checkSeanceAvailability(seance);
+        if(!seanceNotFull){
+            throw new SeanceDateException("Seance with id: "+seance.getId()+" has no more seats available");
+        }
+
         Boolean seanceStarted = checkSeanceStarted(seance);
         if(seanceStarted){
             throw new SeanceAlreadyStartedException("It is already past start date of seance: "+seance.getId());
@@ -84,6 +89,18 @@ public class ReservationService {
         if(reservationList.isEmpty())
             return true;
         return false;
+    }
+
+    private Boolean checkSeanceAvailability(Seance seance){
+        List<Reservation> reservationList = new ArrayList<>();
+        reservationRepository.findAll().stream()
+                .forEach(reservation -> {
+                    if(reservation.getSeance().equals(seance))
+                        reservationList.add(reservation);
+                });
+        if(reservationList.size()>=seance.getRoom().getSeats())
+            return false;
+        return true;
     }
 
     private Boolean checkSeanceStarted(Seance seance){

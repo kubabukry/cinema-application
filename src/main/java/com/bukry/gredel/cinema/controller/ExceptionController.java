@@ -52,6 +52,12 @@ public class ExceptionController {
         return new ErrorResponse(HttpStatus.CONFLICT.value(), e.getMessage());
     }
 
+    @ExceptionHandler(value = PasswordsDontMatchException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ErrorResponse handlePasswordsDontMatchException(PasswordsDontMatchException e){
+        return new ErrorResponse(HttpStatus.CONFLICT.value(), e.getMessage());
+    }
+
     @ExceptionHandler(value = MovieTitleAlreadyExistsException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse handleMovieTitleAlreadyExistsException(MovieTitleAlreadyExistsException e){

@@ -18,27 +18,27 @@ public class SeanceController {
         this.seanceService = seanceService;
     }
 
-    @PostMapping("/seances")
+    @PostMapping("/seances/create")
     public void createSeance(@RequestBody SeanceCreationDto seanceCreationDto){
         seanceService.createSeance(seanceCreationDto);
     }
 
-    @PutMapping("/seances")
+    @PutMapping("/seances/update")
     public void updateSeance(@RequestBody SeanceDto seanceDto){
         seanceService.updateSeance(seanceDto);
     }
 
-    @GetMapping("/seances")
+    @GetMapping("/seances/all")
     public List<SeanceDto> getSeances(){
         return mapSeanceListToSeanceDtoList(seanceService.getSeances());
     }
 
-    @GetMapping("/seances/{id}")
+    @GetMapping("/seances/single/{id}")
     public SeanceDto getSingleSeance(@PathVariable Long id){
         return mapSeanceToSeanceDto(seanceService.getSingleSeance(id));
     }
 
-    @DeleteMapping("/seances/{id}")
+    @DeleteMapping("/seances/delete/{id}")
     public void deleteSeance(@PathVariable Long id){
         seanceService.deleteSeance(id);
     }

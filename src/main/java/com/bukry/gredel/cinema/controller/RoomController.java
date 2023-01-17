@@ -20,27 +20,27 @@ public class RoomController {
         this.roomService = roomService;
     }
 
-    @GetMapping("/rooms")
+    @GetMapping("/rooms/all")
     public List<RoomDto> getRooms(){
         return mapRoomListToRoomDtoList(roomService.getRooms());
     }
 
-    @GetMapping("/rooms/{id}")
+    @GetMapping("/rooms/single/{id}")
     public RoomDto getSingleRoom(@PathVariable Long id){
         return mapRoomToRoomDto(roomService.getSingleRoom(id));
     }
 
-    @PostMapping("/rooms")
+    @PostMapping("/rooms/create")
     public void createRoom(@Valid @RequestBody RoomCreationDto roomCreationDto){
         roomService.createRoom(roomCreationDto);
     }
 
-    @PutMapping("/rooms")
+    @PutMapping("/rooms/update")
     public void updateRoom(@Valid @RequestBody RoomDto roomDto){
         roomService.updateRoom(roomDto);
     }
 
-    @DeleteMapping("/rooms/{id}")
+    @DeleteMapping("/rooms/delete/{id}")
     public void deleteRoom(@PathVariable Long id){
         roomService.deleteRoom(id);
     }
