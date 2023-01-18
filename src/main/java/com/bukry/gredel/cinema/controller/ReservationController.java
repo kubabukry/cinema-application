@@ -3,6 +3,7 @@ package com.bukry.gredel.cinema.controller;
 import com.bukry.gredel.cinema.dto.ReservationCreationDto;
 import com.bukry.gredel.cinema.dto.ReservationDto;
 import com.bukry.gredel.cinema.service.ReservationService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -22,21 +23,25 @@ public class ReservationController {
     }
 
     @PostMapping("/reservations")
+    @SecurityRequirement(name = "bearer")
     public void createReservation(@Valid @RequestBody ReservationCreationDto reservationCreationDto){
         reservationService.createReservation(reservationCreationDto);
     }
 
     @GetMapping("/reservations")
+    @SecurityRequirement(name = "bearer")
     public List<ReservationDto> getReservations(){
         return mapReservationListToReservationListDto(reservationService.getReservations());
     }
 
     @GetMapping("/reservations/{id}")
+    @SecurityRequirement(name = "bearer")
     public ReservationDto getSingleReservation(@PathVariable Long id){
         return mapReservationToReservationDto(reservationService.getSingleReservation(id));
     }
 
     @DeleteMapping("/reservations/{id}")
+    @SecurityRequirement(name = "bearer")
     public void deleteReservation(@PathVariable Long id){
         reservationService.deleteReservation(id);
     }

@@ -82,7 +82,6 @@ public class PersonService {
 
         person.setLogin(personUpdateDto.getLogin());
         person.setEmail(personUpdateDto.getEmail());
-        person.setRole(Role.ADMIN);
         personRepository.save(person);
     }
 
@@ -102,7 +101,7 @@ public class PersonService {
         );
         Person person = personRepository.findByLogin(authenticationRequest.getLogin())
                 .orElseThrow(() -> new NoSuchPersonExistsException(
-                        "No such user with login: "+authenticationRequest.getLogin()+" exists"));
+                        "Invalid login or password"));
         var jwtToken = jwtService.generateToken(person);
 
         return AuthenticationResponseDto.builder()

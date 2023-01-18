@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .permitAll()
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/seances/**", "/seances/create/**", "/seances/update",
+                .requestMatchers("/seances/create/**", "/seances/update",
                         "/seances/delete/**", "/room/create", "/room/update", "/room/delete/**",
                         "/movies/create", "/movies/update", "/movies/delete/**", "/persons/all")
                 .hasAuthority("ADMIN")

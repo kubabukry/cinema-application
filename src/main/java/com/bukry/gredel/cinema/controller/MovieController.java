@@ -3,6 +3,7 @@ package com.bukry.gredel.cinema.controller;
 import com.bukry.gredel.cinema.dto.MovieCreationDto;
 import com.bukry.gredel.cinema.dto.MovieDto;
 import com.bukry.gredel.cinema.service.MovieService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -33,16 +34,19 @@ public class MovieController {
     }
 
     @PostMapping("/movies/create")
+    @SecurityRequirement(name = "bearer")
     public void createMovie(@Valid @RequestBody MovieCreationDto movieCreationDto){
         movieService.createMovie(movieCreationDto);
     }
 
     @PutMapping("/movies/update")
+    @SecurityRequirement(name = "bearer")
     public void updateMovie(@Valid @RequestBody MovieDto movieDto){
         movieService.updateMovie(movieDto);
     }
 
     @DeleteMapping("/movies/delete/{id}")
+    @SecurityRequirement(name = "bearer")
     public void deleteMovie(@PathVariable Long id){
         movieService.deleteMovie(id);
     }
