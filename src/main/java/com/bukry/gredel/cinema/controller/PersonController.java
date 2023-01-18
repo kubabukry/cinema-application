@@ -61,6 +61,11 @@ public class PersonController {
         return ResponseEntity.ok(personService.authenticate(authenticationRequest));
     }
 
+    @PostMapping("/persons/auth/validate-token/{token}")
+    public TokenExpirationDto checkTokenExpiration(@PathVariable String token){
+        return personService.checkTokenExpiration(token);
+    }
+
     @GetMapping("/persons/single/{id}")
     @SecurityRequirement(name = "bearer")
     public PersonDto getSinglePerson(

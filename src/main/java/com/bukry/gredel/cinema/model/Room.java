@@ -24,6 +24,11 @@ public class Room implements Serializable {
     @ToString.Exclude
     private List<Seance> seanceList;
 
+    public Room(Long id, String name){
+        this.id = id;
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
