@@ -55,7 +55,8 @@ public class SeanceService {
 
         List<Seance> seanceList = room.getSeanceList();
         Boolean roomAvailable = checkIfRoomAvailable(room.getSeanceList().stream().toList(), seanceCreationDto.getStartDate());
-        if(!roomAvailable)
+        Boolean sameDateUsed = seanceRepository.existsByStartDateAndRoom(seanceCreationDto.getStartDate(), room);
+        if(!roomAvailable || sameDateUsed)
             throw new SeanceDateException(
                     "Room with id: "+room.getId()+" has seance already planned at this time");
 
@@ -104,7 +105,8 @@ public class SeanceService {
         Room room = roomService.getSingleRoom(seanceDto.getIdRoom());
 
         Boolean roomAvailable = checkIfRoomAvailable(room.getSeanceList(), seanceDto.getStartDate());
-        if(!roomAvailable)
+        Boolean sameDateUsed = seanceRepository.existsByStartDateAndRoom(seanceDto.getStartDate(), room);
+        if(!roomAvailable || sameDateUsed)
             throw new SeanceDateException(
                     "Room with id: "+room.getId()+" has already seance planned at this time");
 

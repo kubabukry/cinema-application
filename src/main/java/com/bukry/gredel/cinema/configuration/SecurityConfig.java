@@ -35,17 +35,16 @@ public class SecurityConfig {
                 .csrf()     //todo nie działa z and().cors()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/seances/create", "/seances/update", "/seances/delete/**",
-                        "/room/create", "/room/update", "/room/delete/**",
-                        "/movies/create", "/movies/update", "/movies/delete/**",
-                        "/persons/all")
-                .hasRole(Role.ADMIN.name())
-                .and()
-                .authorizeHttpRequests()
                 .requestMatchers("/persons/auth/**", "/swagger-ui/**", "/v3/api-docs/**",
                         "/seances/all", "seances/single/**", "/reservations/**",
                         "/rooms/all", "/rooms/single/**", "/movies/all", "/movies/single/**")
                 .permitAll()
+                .and()
+                .authorizeHttpRequests()
+                .requestMatchers("/seances/**", "/seances/create/**", "/seances/update",
+                        "/seances/delete/**", "/room/create", "/room/update", "/room/delete/**",
+                        "/movies/create", "/movies/update", "/movies/delete/**", "/persons/all")
+                .hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -54,7 +53,6 @@ public class SecurityConfig {
                 .and()
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
     }
     @PostConstruct
