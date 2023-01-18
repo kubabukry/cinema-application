@@ -7,12 +7,15 @@ import com.bukry.gredel.cinema.exception.NoSuchPersonExistsException;
 import com.bukry.gredel.cinema.model.Person;
 import com.bukry.gredel.cinema.model.Role;
 import com.bukry.gredel.cinema.repository.PersonRepository;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -123,5 +126,17 @@ public class PersonService {
 
         person.setPassword(passwordEncoder.encode(changePasswordDto.getNewPassword()));
         personRepository.save(person);
+    }
+
+    public TokenExpirationDto checkTokenExpiration(String token) {
+        try {
+            return TokenExpirationDto.builder()
+                .isNotExpired(!jwtService.extractExpiration(token).before(new Date()))
+                .build();
+        } catch (ExpiredJwtException e){
+            return TokenExpirationDto.builder()
+                    .isNotExpired(false)
+                    .build();
+        }
     }
 }
