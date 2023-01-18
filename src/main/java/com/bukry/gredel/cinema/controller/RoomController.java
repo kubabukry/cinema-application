@@ -3,6 +3,7 @@ package com.bukry.gredel.cinema.controller;
 import com.bukry.gredel.cinema.dto.RoomCreationDto;
 import com.bukry.gredel.cinema.dto.RoomDto;
 import com.bukry.gredel.cinema.service.RoomService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -33,16 +34,19 @@ public class RoomController {
     }
 
     @PostMapping("/rooms/create")
+    @SecurityRequirement(name = "bearer")
     public void createRoom(@Valid @RequestBody RoomCreationDto roomCreationDto){
         roomService.createRoom(roomCreationDto);
     }
 
     @PutMapping("/rooms/update")
+    @SecurityRequirement(name = "bearer")
     public void updateRoom(@Valid @RequestBody RoomDto roomDto){
         roomService.updateRoom(roomDto);
     }
 
     @DeleteMapping("/rooms/delete/{id}")
+    @SecurityRequirement(name = "bearer")
     public void deleteRoom(@PathVariable Long id){
         roomService.deleteRoom(id);
     }

@@ -12,8 +12,4 @@ public class PersonUpdateDto {
     private String login;
     @ValidEmail
     private String email;
-    @ValidPassword
-    private String password;
-    @NotBlank
-    private String roleName;
 }

@@ -3,6 +3,7 @@ package com.bukry.gredel.cinema.controller;
 import com.bukry.gredel.cinema.dto.SeanceCreationDto;
 import com.bukry.gredel.cinema.dto.SeanceDto;
 import com.bukry.gredel.cinema.service.SeanceService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +23,13 @@ public class SeanceController {
     }
 
     @PostMapping("/seances/create")
+    @SecurityRequirement(name = "bearer")
     public void createSeance(@RequestBody SeanceCreationDto seanceCreationDto){
         seanceService.createSeance(seanceCreationDto);
     }
 
     @PutMapping("/seances/update")
+    @SecurityRequirement(name = "bearer")
     public void updateSeance(@RequestBody SeanceDto seanceDto){
         seanceService.updateSeance(seanceDto);
     }
@@ -42,6 +45,7 @@ public class SeanceController {
     }
 
     @DeleteMapping("/seances/delete/{id}")
+    @SecurityRequirement(name = "bearer")
     public void deleteSeance(@PathVariable Long id){
         seanceService.deleteSeance(id);
     }
