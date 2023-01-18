@@ -2,6 +2,7 @@ package com.bukry.gredel.cinema.controller;
 
 import com.bukry.gredel.cinema.dto.*;
 import com.bukry.gredel.cinema.service.PersonService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import static com.bukry.gredel.cinema.mapper.PersonMapper.mapPersonListToPersonD
 import static com.bukry.gredel.cinema.mapper.PersonMapper.mapPersonToPersonDto;
 
 @RestController
+@Tag(name = "users")
 public class PersonController {
 
     private final PersonService personService;

@@ -15,5 +15,5 @@ public class PersonUpdateDto {
     @ValidPassword
     private String password;
     @NotBlank
-    private Long roleId;
+    private String roleName;
 }

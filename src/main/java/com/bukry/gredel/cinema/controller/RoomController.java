@@ -3,6 +3,7 @@ package com.bukry.gredel.cinema.controller;
 import com.bukry.gredel.cinema.dto.RoomCreationDto;
 import com.bukry.gredel.cinema.dto.RoomDto;
 import com.bukry.gredel.cinema.service.RoomService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import static com.bukry.gredel.cinema.mapper.RoomMapper.mapRoomToRoomDto;
 import java.util.List;
 
 @RestController
+@Tag(name = "rooms")
 public class RoomController {
 
     private final RoomService roomService;

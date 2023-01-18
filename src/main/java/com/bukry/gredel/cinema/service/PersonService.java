@@ -73,7 +73,7 @@ public class PersonService {
         Boolean loginExists = personRepository.existsByLogin(personUpdateDto.getLogin());
         Boolean emailExists = personRepository.existsByEmail(personUpdateDto.getEmail());
 
-        if(loginExists){
+        if(loginExists && !personUpdateDto.getLogin().equals(person.getLogin())){
             throw new LoginAlreadyExistsException("Login: "+personUpdateDto.getLogin()+" already exists");
         }
         if(emailExists){
@@ -82,6 +82,7 @@ public class PersonService {
 
         person.setLogin(personUpdateDto.getLogin());
         person.setEmail(personUpdateDto.getEmail());
+        person.setRole(Role.ADMIN);
         personRepository.save(person);
     }
 

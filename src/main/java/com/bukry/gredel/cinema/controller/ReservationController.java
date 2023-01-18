@@ -3,6 +3,7 @@ package com.bukry.gredel.cinema.controller;
 import com.bukry.gredel.cinema.dto.ReservationCreationDto;
 import com.bukry.gredel.cinema.dto.ReservationDto;
 import com.bukry.gredel.cinema.service.ReservationService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import static com.bukry.gredel.cinema.mapper.ReservationMapper.mapReservationLis
 import java.util.List;
 
 @RestController
+@Tag(name = "reservations")
 public class ReservationController {
     private final ReservationService reservationService;
 

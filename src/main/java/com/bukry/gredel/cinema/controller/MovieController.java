@@ -3,6 +3,7 @@ package com.bukry.gredel.cinema.controller;
 import com.bukry.gredel.cinema.dto.MovieCreationDto;
 import com.bukry.gredel.cinema.dto.MovieDto;
 import com.bukry.gredel.cinema.service.MovieService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import static com.bukry.gredel.cinema.mapper.MovieMapper.mapMovieListToMovieDtoL
 import static com.bukry.gredel.cinema.mapper.MovieMapper.mapMovieToMovieDto;
 
 @RestController
+@Tag(name = "movies")
 public class MovieController {
 
     private final MovieService movieService;

@@ -3,6 +3,8 @@ package com.bukry.gredel.cinema.controller;
 import com.bukry.gredel.cinema.dto.SeanceCreationDto;
 import com.bukry.gredel.cinema.dto.SeanceDto;
 import com.bukry.gredel.cinema.service.SeanceService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import static com.bukry.gredel.cinema.mapper.SeanceMapper.mapSeanceListToSeanceDtoList;
@@ -11,6 +13,7 @@ import static com.bukry.gredel.cinema.mapper.SeanceMapper.mapSeanceToSeanceDto;
 import java.util.List;
 
 @RestController
+@Tag(name = "seances")
 public class SeanceController {
     private final SeanceService seanceService;
 
