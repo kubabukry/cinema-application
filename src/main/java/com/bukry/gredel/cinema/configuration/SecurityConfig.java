@@ -32,6 +32,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
+
                 .csrf()     //todo nie działa z and().cors()
                 .disable()
                 .authorizeHttpRequests()
