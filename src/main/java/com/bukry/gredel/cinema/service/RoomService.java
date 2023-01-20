@@ -59,14 +59,16 @@ public class RoomService {
     @Transactional
     public void updateRoom(RoomDto roomDto) {
         List<Seance> seanceList = seanceRepository.findAll();
-        Boolean roomNotBooked = seanceList.stream()
-                .filter(seance -> seance.getRoom().getId().equals(roomDto.getId())&&seance.getIsPublicated()==true)
+        boolean roomNotBooked = seanceList.stream()
+                .filter(seance -> seance.getRoom().getId().equals(roomDto.getId()) && seance.getIsPublicated())
                 .collect(Collectors.toList()).isEmpty();
         if(!roomNotBooked)
             throw new SeatAlreadyTakenException(
                     "Room with id: "+roomDto.getId()+" is already booked for seance");
 
-        Room room = getSingleRoom(roomDto.getId());
+        Room room = roomRepository.findById(roomDto.getId())
+                .orElseThrow();
+
         Boolean roomExists = roomRepository.existsByName(roomDto.getName());
         if(roomExists&&!room.getName().equals(roomDto.getName()))
             throw new RoomAlreadyExistsException(
