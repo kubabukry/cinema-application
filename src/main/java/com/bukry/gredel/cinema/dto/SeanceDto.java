@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @Builder
@@ -15,4 +16,5 @@ public class SeanceDto {
     private Instant startDate;
     private Instant endDate;
     private Integer availableSeats;
+    private List<Integer> freeSeats;
 }
