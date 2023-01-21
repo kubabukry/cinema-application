@@ -7,6 +7,7 @@ import Dashboard from './components/Dashboard';
 import Homepage from './components/Homepage';
 import Login from './components/Login';
 import PrivateRoute from './components/PrivateRoute';
+import Register from './components/Register';
 
 function App() {  
 
@@ -18,6 +19,8 @@ function App() {
         </PrivateRoute>}/>
       <Route path="/" element={<Homepage />}/>
       <Route path="/login" element={<Login />}/>
+      <Route path="/register" element={<Register />}/>
+
     </Routes>
   );
 }

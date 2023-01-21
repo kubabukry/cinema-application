@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useLocalState } from '../../util/useLocalStorage';
 import Homepage from '../Homepage';
 import './LoginForm.css';
@@ -22,11 +23,11 @@ const Login = () => {
       } else if(username.length < 3 || username.length > 32) {
         setError('Username must be between 3 and 32 characters long');
       } else if (!usernameRegexp.test(username)) {
-        setError('Username '+usernameMessage);
+        setError(usernameMessage);
       } else if (!password) {
         setError('Password '+mandatoryMessage);
       } else if (!passwordRegexp.test(password)) {
-        setError('Password '+passwordMessage);
+        setError(passwordMessage);
       } else {
         const reqBody = {
             login: username,
@@ -84,8 +85,10 @@ const Login = () => {
           <br />
           {error && <div className="login-error" style={{ color: 'red' }}>{error}</div>}
           <br />
+          <Link to="/register">Don't you have account yet? Click here to register.</Link>
           <button className="login-button" type="submit">Log in</button>
         </form>
+       
         </div>
       );
 };
