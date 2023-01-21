@@ -7,8 +7,8 @@ const SeanceBox = ({ seance }) => {
       <div className="seance-box">
         <p>Title:<br/> {seance.movie.title}</p>
         <p>Duration:<br/> {seance.movie.duration}min</p>
-        <p>Start Date:<br/> {seance.startDate}</p>
-        <p>End Date:<br/> {seance.endDate}</p>
+        <p>Start Date:<br/> {new Date(seance.startDate).toLocaleDateString() + " " + new Date(seance.startDate).toLocaleTimeString([], {hour12: false})}</p>
+        <p>End Date:<br/> {new Date(seance.endDate).toLocaleDateString() + " " + new Date(seance.endDate).toLocaleTimeString([], {hour12: false})}</p>
         <p>Room:<br/> {seance.room.name}</p>
         <p>Available seats:<br/> {seance.availableSeats}/{seance.room.seats}</p>
         <Link to='/reservation'

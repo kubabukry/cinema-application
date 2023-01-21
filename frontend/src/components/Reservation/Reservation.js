@@ -6,7 +6,11 @@ const Reservation = () => {
   const [jwt, setJwt] = useLocalState("", "jwt");
   const [selectedSeat, setSelectedSeat] = useState(null);
   const location = useLocation()
-  const seance = location.state;
+  const [seance, setSeance] = useState(location.state);
+
+  const startDate = new Date(seance.startDate).toLocaleDateString() + " " + new Date(seance.startDate).toLocaleTimeString([], {hour12: false});
+  const endDate = new Date(seance.endDate).toLocaleDateString() + " " + new Date(seance.endDate).toLocaleTimeString([], {hour12: false});
+
   console.log("Reservation: ",seance)
   const handleSeatSelection = (seat) => {
     if(seance.freeSeats.includes(seat)) setSelectedSeat(seat);
@@ -39,6 +43,10 @@ const Reservation = () => {
       
       if(response.status === 200) {
           alert(`Seat ${reqBody.seat} reserved!`);
+          const newSeance = seance
+          newSeance.freeSeats = newSeance.freeSeats.filter(item => item !== reqBody.seat);
+          setSeance(newSeance);
+          setSelectedSeat(undefined);
         } else if(response.status === 400 || response.status === 409) {
           const data = await response.json();
           alert(data.message);
@@ -55,8 +63,8 @@ const Reservation = () => {
     <div className="reservation">
       <p>Title: {seance.movie.title}</p>
       <p>Duration: {seance.movie.duration}min</p>
-      <p>Start Date: {seance.startDate}</p>
-      <p>End Date: {seance.endDate}</p>
+      <p>Start Date: {startDate}</p>
+      <p>End Date: {endDate}</p>
       <p>Free seats:</p>
       <div>
         {rows.map((row, index) => (

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useLocalState } from '../../util/useLocalStorage';
 import SeanceList from './SeanceList';
+import { useLocalState } from '../../util/useLocalStorage';
+
 
 const Dashboard = () => {
-    const [jwt, setJwt] = useLocalState("", "jwt");
     const [seances, setSeances] = useState();
     const [isLoading, setIsLoading] = useState(true);
-
+    const [jwt, setJwt] = useLocalState("", "jwt");
+    
     useEffect(() => {
         const getData = async () => {
             try {
