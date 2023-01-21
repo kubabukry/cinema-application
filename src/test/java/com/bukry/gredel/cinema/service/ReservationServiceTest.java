@@ -40,6 +40,8 @@ class ReservationServiceTest {
     @Mock
     private PersonRepository personRepository;
     @Mock
+    private PersonService personService;
+    @Mock
     private Clock clock;
     List<Reservation> reservationList = new ArrayList<>();
 
@@ -48,7 +50,7 @@ class ReservationServiceTest {
         this.reservationService = new ReservationService(
                 this.reservationRepository,
                 clock, this.personRepository,
-                this.seanceRepository);
+                personService, this.seanceRepository);
         reservationList = List.of(
                 new Reservation(),
                 new Reservation(),
@@ -67,7 +69,7 @@ class ReservationServiceTest {
 
         when(personRepository.findById(1L)).thenReturn(Optional.of(person));
         when(seanceRepository.findById(1L)).thenReturn(Optional.of(seance));
-        when(clock.instant()).thenReturn(Instant.ofEpochSecond(1737408291));
+        when(clock.instant()).thenReturn(Instant.ofEpochSecond(0));
         reservationService.createReservation(reservationCreationDto);
         verify(personRepository).findById(1L);
         verify(seanceRepository).findById(1L);
@@ -81,7 +83,7 @@ class ReservationServiceTest {
         Person person = new Person();
         person.setId(1L);
         Room room = new Room(null, null, 10, null);
-        Seance seance = new Seance(1L, Instant.ofEpochSecond(0), Instant.ofEpochSecond(0), null, null, room, null);
+        Seance seance = new Seance(1L, Instant.ofEpochSecond(1579557341), Instant.ofEpochSecond(1579557342), null, null, room, null);
         ReservationCreationDto reservationCreationDto = new ReservationCreationDto(1, 1L, 1L);
 
         when(personRepository.findById(1L)).thenReturn(Optional.of(person));

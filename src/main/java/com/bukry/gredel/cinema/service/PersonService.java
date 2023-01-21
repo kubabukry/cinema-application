@@ -139,4 +139,13 @@ public class PersonService {
                     .build();
         }
     }
+
+    public Long getSinglePersonByToken(String token) {
+        String stripedToken = token.split(" ")[1];
+        String username = jwtService.extractUsername(stripedToken);
+        Person person = personRepository.findByLogin(username)
+                .orElseThrow(() -> new NoSuchPersonExistsException("No such person with login: "+username+" exists"));
+
+        return person.getId();
+    }
 }

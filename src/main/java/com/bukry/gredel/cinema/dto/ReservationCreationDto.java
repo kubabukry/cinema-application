@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ReservationCreationDto {
-    private Integer seat;
     @NotNull
+    private Integer seat;
     private Long idPerson;
     @NotNull
     private Long idSeance;
