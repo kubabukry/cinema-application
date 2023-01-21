@@ -37,7 +37,7 @@ public class SecurityConfig {
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/persons/auth/**", "/swagger-ui/**", "/v3/api-docs/**",
-                        "/seances/all", "/seances/single/**", "/reservation/**",
+                        "/seances/all", "/seances/single/**", "/reservation/**", "/persons/single/**",
                         "/rooms/all", "/rooms/single/**", "/movies/all", "/movies/single/**")
                 .permitAll()
                 .and()

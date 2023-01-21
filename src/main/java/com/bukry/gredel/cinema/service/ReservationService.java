@@ -23,12 +23,15 @@ public class ReservationService {
 
     private final Clock clock;
     private final PersonRepository personRepository;
+
+    private final PersonService personService;
     private final SeanceRepository seanceRepository;
 
-    public ReservationService(ReservationRepository reservationRepository, Clock clock, PersonRepository personRepository, SeanceRepository seanceRepository) {
+    public ReservationService(ReservationRepository reservationRepository, Clock clock, PersonRepository personRepository, PersonService personService, SeanceRepository seanceRepository) {
         this.reservationRepository = reservationRepository;
         this.clock = clock;
         this.personRepository = personRepository;
+        this.personService = personService;
         this.seanceRepository = seanceRepository;
     }
 

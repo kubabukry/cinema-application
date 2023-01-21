@@ -66,6 +66,11 @@ public class PersonController {
         return personService.checkTokenExpiration(token);
     }
 
+    @GetMapping("/persons/single/{token}")
+    public Long getSinglePersonByToken(@PathVariable String token){
+        return personService.getSinglePersonByToken(token);
+    }
+
     @GetMapping("/persons/single/{id}")
     @SecurityRequirement(name = "bearer")
     public PersonDto getSinglePerson(
