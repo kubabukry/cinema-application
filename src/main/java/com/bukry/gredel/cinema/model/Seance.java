@@ -14,7 +14,8 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
-public class Seance implements Serializable {
+@AllArgsConstructor
+public class Seance{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;

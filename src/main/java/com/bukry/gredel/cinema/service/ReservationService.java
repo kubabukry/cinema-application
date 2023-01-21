@@ -6,13 +6,13 @@ import com.bukry.gredel.cinema.model.Person;
 import com.bukry.gredel.cinema.model.Reservation;
 import com.bukry.gredel.cinema.model.Room;
 import com.bukry.gredel.cinema.model.Seance;
-import com.bukry.gredel.cinema.repository.MovieRepository;
 import com.bukry.gredel.cinema.repository.PersonRepository;
 import com.bukry.gredel.cinema.repository.ReservationRepository;
 import com.bukry.gredel.cinema.repository.SeanceRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Clock;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +20,14 @@ import java.util.List;
 @Service
 public class ReservationService {
     private final ReservationRepository reservationRepository;
+
+    private final Clock clock;
     private final PersonRepository personRepository;
     private final SeanceRepository seanceRepository;
 
-    public ReservationService(ReservationRepository reservationRepository, PersonRepository personRepository, MovieRepository movieRepository, SeanceRepository seanceRepository) {
+    public ReservationService(ReservationRepository reservationRepository, Clock clock, PersonRepository personRepository, SeanceRepository seanceRepository) {
         this.reservationRepository = reservationRepository;
+        this.clock = clock;
         this.personRepository = personRepository;
         this.seanceRepository = seanceRepository;
     }
@@ -105,7 +108,7 @@ public class ReservationService {
 
     private Boolean checkSeanceStarted(Seance seance){
         Instant startDate = seance.getStartDate();
-        if(startDate.isBefore(Instant.now()))
+        if(startDate.isBefore(clock.instant()))
             return true;
         return false;
     }

@@ -13,6 +13,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class Room implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
