@@ -11,8 +11,8 @@ import java.util.List;
 public class SeanceDto {
     private Long id;
     private Boolean isPublicated;
-    private Long idMovie;
-    private Long idRoom;
+    private MovieDto movie;
+    private RoomDto room;
     private Instant startDate;
     private Instant endDate;
     private Integer availableSeats;

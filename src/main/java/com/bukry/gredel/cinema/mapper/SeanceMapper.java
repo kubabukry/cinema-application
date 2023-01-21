@@ -7,14 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.bukry.gredel.cinema.mapper.MovieMapper.mapMovieListToMovieDtoList;
+import static com.bukry.gredel.cinema.mapper.MovieMapper.mapMovieToMovieDto;
+import static com.bukry.gredel.cinema.mapper.RoomMapper.mapRoomToRoomDto;
+
 public class SeanceMapper {
 
     public static SeanceDto mapSeanceToSeanceDto(Seance seance){
         return SeanceDto.builder()
                 .id(seance.getId())
                 .isPublicated(seance.getIsPublicated())
-                .idMovie(seance.getMovie().getId())
-                .idRoom(seance.getRoom().getId())
+                .movie(mapMovieToMovieDto(seance.getMovie()))
+                .room(mapRoomToRoomDto(seance.getRoom()))
                 .startDate(seance.getStartDate())
                 .endDate(seance.getEndDate())
                 .availableSeats(checkHowManySeatsAvailable(seance))
@@ -27,12 +31,12 @@ public class SeanceMapper {
                 .map(seance -> SeanceDto.builder()
                         .id(seance.getId())
                         .isPublicated(seance.getIsPublicated())
-                        .idMovie(seance.getMovie().getId())
-                        .idRoom(seance.getRoom().getId())
+                        .movie(mapMovieToMovieDto(seance.getMovie()))
+                        .room(mapRoomToRoomDto(seance.getRoom()))
                         .startDate(seance.getStartDate())
                         .endDate(seance.getEndDate())
                         .availableSeats(checkHowManySeatsAvailable(seance))
-                        .freeSeats(null)
+                        .freeSeats(getFreeSeats(seance))
                         .build())
                 .collect(Collectors.toList());
     }

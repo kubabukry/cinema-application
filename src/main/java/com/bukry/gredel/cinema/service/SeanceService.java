@@ -101,8 +101,8 @@ public class SeanceService {
         if(pastEndDate)
             throw new SeanceDateException("End date can not be before start date");
 
-        Movie movie = movieService.getSingleMovie(seanceDto.getIdMovie());
-        Room room = roomService.getSingleRoom(seanceDto.getIdRoom());
+        Movie movie = movieService.getSingleMovie(seanceDto.getMovie().getId());
+        Room room = roomService.getSingleRoom(seanceDto.getRoom().getId());
 
         Boolean roomAvailable = checkIfRoomAvailable(room.getSeanceList(), seanceDto.getStartDate());
         Boolean sameDateUsed = seanceRepository.existsByStartDateAndRoom(seanceDto.getStartDate(), room);
