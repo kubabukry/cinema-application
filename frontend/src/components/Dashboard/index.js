@@ -1,12 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import SeanceList from './SeanceList';
 import { useLocalState } from '../../util/useLocalStorage';
 
+
 const Dashboard = () => {
-    const [jwt, setJwt] = useLocalState("", "jwt")
-    return (
-        <div>
-            token: ${jwt}
-        </div>
+    const [seances, setSeances] = useState();
+    const [isLoading, setIsLoading] = useState(true);
+    const [jwt, setJwt] = useLocalState("", "jwt");
+    
+    useEffect(() => {
+        const getData = async () => {
+            try {
+            const response = await fetch("/seances/all", {method: "get",})
+            
+            if(response.status === 200) {
+                const data = await response.json();
+                setSeances(data);
+                setIsLoading(false);
+              } else {
+                throw new Error();
+              }
+        } catch(error) {
+            console.log(error);
+        }
+      }
+      getData();
+    },[])
+    console.log(seances)
+
+    return (isLoading ? (<div>Loading...</div>) : <SeanceList seances={seances} />
     );
 };
 

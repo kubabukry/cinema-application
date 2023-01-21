@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useLocalState } from '../../util/useLocalStorage';
-import Homepage from '../Homepage';
 import './LoginForm.css';
 
 const Login = () => {
@@ -57,7 +56,7 @@ const Login = () => {
         }
       }
     }
-    if(jwt) return <Homepage/>  
+    if(jwt) return <Navigate to="/"/>  
     else
     return (<div>
         <form className="login-form" onSubmit={handleSubmit}>
