@@ -3,6 +3,7 @@ package com.bukry.gredel.cinema.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,8 +23,10 @@ public class Person implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    @Column(unique=true)
     private String login;
     private String password;
+    @Column(unique=true)
     private String email;
 
     @Enumerated(EnumType.STRING)
